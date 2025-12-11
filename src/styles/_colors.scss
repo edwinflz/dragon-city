@@ -1,0 +1,42 @@
+$white: #ffffff;
+$black: #000000;
+
+$card-bg: $white;
+
+$color-variants: (
+  'yellow': (#FDDE51, #FCE057),
+  'blue': (#48dbfb, #0abde3),
+  'red': (#ff6b6b, #ee5a24),
+  'green': (#6ab04c, #badc58),
+  'purple': (#a29bfe, #6c5ce7),
+  'orange': (#ffa502, #ff6348),
+  'pink': (#fd79a8, #e84393),
+  'gray': (#dfe6e9, #b2bec3)
+);
+
+
+$default-card-start: #FDDE51;
+$default-card-end: #FCE057;
+
+$badge-bg-start: $white;
+$badge-bg-end: #f9f9f9;
+
+$element-bg: rgba($white, 0.6);
+$element-bg-hover: rgba($white, 0.9);
+$elements-container-bg: rgba($white, 0.35);
+
+$text-white: $white;
+
+$shadow-dark: rgba($black, 0.3);
+$shadow-medium: rgba($black, 0.2);
+$shadow-light: rgba($black, 0.15);
+$shadow-subtle: rgba($black, 0.1);
+$shadow-faint: rgba($black, 0.08);
+$shadow-minimal: rgba($black, 0.06);
+
+$scale-white-intense: rgba($white, 0.3);
+$scale-white-medium: rgba($white, 0.25);
+$scale-white-subtle: rgba($white, 0.2);
+$scale-white-light: rgba($white, 0.15);
+$scale-white-faint: rgba($white, 0.12);
+$scale-white-minimal: rgba($white, 0.1);

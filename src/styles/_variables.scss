@@ -1,0 +1,56 @@
+// Card dimensions
+$card-border-radius: 20px;
+$content-border-radius: 16px;
+$badge-size: 48px;
+$element-icon-size: 40px;
+$dragon-image-height: 200px;
+$card-padding: 16px;
+$card-content-padding: 20px;
+$transition-normal: transform 0.3s ease, box-shadow 0.3s ease;
+
+$bite-cover-offset: -8px;
+$bite-cover-size: 80px;
+$badge-position: 2px;
+$badge-font-size: 26px;
+
+$dragon-image-margin: 20px 0;
+$dragon-name-margin: 16px 0;
+$dragon-name-font-size: 24px;
+$dragon-name-letter-spacing: 0.5px;
+
+$elements-gap: 12px;
+$elements-padding: 12px;
+$element-icon-font-size: 20px;
+
+
+// Color variants map
+$color-variants: (
+	'red': (#ff6b6b, #ee5a24),
+	'green': (#6ab04c, #badc58),
+	'purple': (#b794f6, #9461C9),
+	'orange': (#ffa502, #ff6348),
+	'pink': (#ff9ff3, #C73FC3),
+	'gray': (#dfe6e9, #b2bec3)
+);
+
+// Spacing
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 16px;
+$spacing-lg: 20px;
+$spacing-xl: 24px;
+
+// Z-index layers
+$z-index-base: 5;
+$z-index-badge: 10;
+$z-index-content: 5;
+$z-index-badge: 10;
+
+// Font weights
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+
+

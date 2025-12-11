@@ -1,0 +1,200 @@
+@use 'variables' as var;
+@use 'mixins' as mixin;
+@use 'colors' as color;
+@use 'sass:list';
+
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.card-container {
+	background: color.$card-bg;
+	border-radius: var.$card-border-radius;
+	padding: var.$card-padding;
+	@include mixin.card-shadow;
+	transition: var.$transition-normal;
+	cursor: pointer;
+
+	--card-color-start: #{color.$default-card-start};
+	--card-color-end: #{color.$default-card-end};
+
+	@each $name, $colors in var.$color-variants {
+		&--#{$name} {
+			--card-color-start: #{list.nth($colors, 1)};
+			--card-color-end: #{list.nth($colors, 2)};
+		}
+	}
+
+	&:hover {
+		@include mixin.card-hover-lift;
+		@include mixin.card-shadow-hover;
+
+		.dragon-image {
+			@include mixin.dragon-image-hover-scale;
+		}
+
+		.card-content::after {
+			@include mixin.shimmer-overlay;
+		}
+	}
+}
+
+.card-content {
+	position: relative;
+	@include mixin.dragon-scales-pattern;
+	border-radius: var.$content-border-radius;
+	padding: var.$card-content-padding;
+	@include mixin.card-content-shadow;
+}
+
+.bite-cover {
+	position: absolute;
+	top: var.$bite-cover-offset;
+	left: var.$bite-cover-offset;
+	width: var.$bite-cover-size;
+	height: var.$bite-cover-size;
+	background: color.$white;
+	z-index: var.$z-index-content;
+	pointer-events: none;
+	border-radius: 0 0 100% 0;
+}
+
+.dragon-badge {
+	position: absolute;
+	top: var.$badge-position;
+	left: var.$badge-position;
+	width: var.$badge-size;
+	height: var.$badge-size;
+	z-index: var.$z-index-badge;
+	@include mixin.flex-center;
+	border-radius: 50%;
+	@include mixin.badge-gradient;
+	@include mixin.badge-shadow;
+	font-size: var.$badge-font-size;
+
+	img {
+		width: 48px;
+		background-size: cover;
+	}
+}
+
+.dragon-image-container {
+	@include mixin.flex-center;
+	height: var.$dragon-image-height;
+	margin: var.$dragon-image-margin;
+	position: relative;
+	z-index: var.$z-index-content;
+}
+
+.dragon-image {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	@include mixin.dragon-image-transition;
+	@include mixin.dragon-image-shadow;
+}
+
+.dragon-name {
+	text-align: center;
+	font-size: var.$dragon-name-font-size;
+	font-weight: var.$font-weight-bold;
+	color: color.$text-white;
+	margin: var.$dragon-name-margin;
+	@include mixin.dragon-name-shadow;
+	letter-spacing: var.$dragon-name-letter-spacing;
+}
+
+.dragon-elements {
+	@include mixin.flex-center;
+	gap: var.$elements-gap;
+	padding: var.$elements-padding;
+	@include mixin.glass-effect;
+	@include mixin.elements-shadow;
+}
+
+.element-icon {
+	width: var.$element-icon-size;
+	height: var.$element-icon-size;
+	@include mixin.flex-center;
+	background: color.$element-bg;
+	border-radius: 50%;
+	@include mixin.element-icon-transition;
+	@include mixin.element-icon-shadow;
+	font-size: var.$element-icon-font-size;
+	position: relative;
+
+	&:hover {
+		@include mixin.element-icon-hover-scale;
+		background: color.$element-bg-hover;
+	}
+
+	.skill-base {
+		width: 30px;
+		height: 30px;
+		object-fit: contain;
+	}
+
+	.skill-overlay {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 65px;
+		height: 65px;
+		object-fit: contain;
+		pointer-events: none;
+		z-index: 1;
+	}
+}
+
+.dragon-skill-special {
+	position: absolute;
+	top: -10px;
+	right: -15px;
+	width: var.$badge-size;
+	height: var.$badge-size;
+	z-index: var.$z-index-badge;
+	@include mixin.flex-center;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+	}
+}
+
+.dragon-category {
+	position: absolute;
+	top: 12px;
+	left: 80px;
+	z-index: var.$z-index-badge + 1;
+	font-size: 16px;
+	font-weight: var.$font-weight-bold;
+	color: color.$text-white;
+	@include mixin.dragon-name-shadow;
+	letter-spacing: var.$dragon-name-letter-spacing;
+	pointer-events: none;
+}
+
+.dragon-family {
+	position: absolute;
+	top: 45px;
+	left: -18px;
+	width: 50px;
+	height: 50px;
+	z-index: var.$z-index-content + 1;
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+	}
+}

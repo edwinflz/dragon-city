@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/colors' as *;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+	padding: 40px 20px;
+}
+
+.container {
+	max-width: 1400px;
+	margin: 0 auto;
+}
