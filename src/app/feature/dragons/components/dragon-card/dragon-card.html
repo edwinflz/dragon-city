@@ -1,45 +1,42 @@
-<div class="card-container card-container--pink">
+<div  [class]="dragon().rarity | dragonRarityColor" (click)="openModal()">
 	<div class="card-content">
 		<span class="bite-cover"></span>
-		<app-dragon-tooltip title="Rareza" description="Dragón Mítico - El más poderoso" position="right">
-			<div class="dragon-badge" tooltip-trigger>
-				<img src="images/rarity/M.png" alt="Mitico">
-			</div>
-		</app-dragon-tooltip>
-		<!-- <div class="dragon-badge">
-			<img src="images/rarity/M.png" alt="Mitico" class="dragon-badge-image">
-		</div> -->
-		<div class="dragon-skill-special">
-			<img src="images/skills/ic-skills-passive-special-1.png" alt="Special">
+		<div class="dragon-badge" dragonTooltip [tooltipTitle]="dragon().rarity | dragonRarityLabel" tooltipPosition="top" tooltipTrigger="hover">
+			<img [src]="dragon().rarity | dragonRarityImage">
+		</div>
+		
+		<div class="dragon-skill-special"
+			[dragonTooltip]="dragon().specialSkillDescription"
+			[tooltipTitle]="dragon().specialSkillTitle" tooltipPosition="top" tooltipTrigger="hover">
+			<img [src]="dragon().specialSkillType | dragonSpecialSkillImage" alt="Special">
 		</div>
 		<div class="dragon-category">
-			Cat.10
+			{{ dragon().category }}
 		</div>
 		<div class="dragon-image-container">
-			<img src="images/dragons/dragon_doomdancer.png" alt="Dragón bailarín maldito" class="dragon-image">
-			<div class="dragon-family">
-				<img src="images/family/doom-icon.png" alt="Doom">
+			<img [src]="dragon().image" class="dragon-image">
+			<div class="dragon-family" dragonTooltip [tooltipTitle]="dragon().family | dragonFamilyLabel" tooltipPosition="left"
+				tooltipTrigger="hover">
+				<img [src]="dragon().family | dragonFamilyImage">
 			</div>
 		</div>
-		<h3 class="dragon-name">Dragón bailarín maldito</h3>
+		<h3 class="dragon-name">{{ dragon().name }}</h3>
 		<div class="dragon-elements">
-			<div class="element-icon">
-				<img src="images/skills/dream-skill.png" alt="Dream" class="skill-base">
-				<img src="images/skills/ic-strong-skill.png" alt="Strong" class="skill-overlay">
-			</div>
-
-			<div class="element-icon">
-				<img src="images/skills/green-skill.png" alt="Green" class="skill-base">
-				<img src="images/skills/ic-strong-skill.png" alt="Strong" class="skill-overlay">
-			</div>
-
-			<div class="element-icon">
-				<img src="images/skills/earth-skill.png" alt="Earth" class="skill-base">
-			</div>
-
-			<div class="element-icon">
-				<img src="images/skills/wind-skill.png" alt="Wind" class="skill-base">
-			</div>
+			@for (skill of dragon().skills; track $index) {
+                @if(skill.isSpecial) {
+					<div class="element-icon" [dragonTooltip]="skill.description"
+						[tooltipTitle]="skill.name" tooltipPosition="top" tooltipTrigger="hover">
+						<img [src]="skill.image" alt="Dream" class="skill-base">
+						<img [src]="skill.strongSkill" alt="Strong" class="skill-overlay">
+					</div>
+				} @else {	
+				<div class="element-icon">
+					<img [src]="skill.image" class="skill-base">
+				</div>
+				}
+			}
 		</div>
 	</div>
 </div>
+
+<app-dragon-modal [dragon]="dragon()" [isOpen]="isModalOpen()" (closeModal)="closeModal()" />

@@ -1,1 +1,13 @@
-<p>tooltip works!</p>
+<div class="dragon-tooltip-container">
+	<div class="tooltip-container" [attr.data-position]="position()">
+	  <div class="tooltip-arrow"></div>
+	  
+	  @if (title()) {
+		<h4 class="tooltip-title">{{ title() }}</h4>
+	  }
+	  
+	  @if (content()) {
+		<p class="tooltip-content">{{ content() }}</p>
+	  }
+	</div>
+</div>

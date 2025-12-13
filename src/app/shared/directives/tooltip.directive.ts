@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Overlay, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { TooltipComponent } from '../components/tooltip/tooltip.component';
+import { TooltipComponent } from '@shared/components/index';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipTrigger = 'hover' | 'click';
@@ -21,9 +21,9 @@ export type TooltipTrigger = 'hover' | 'click';
 	standalone: true
 })
 export class TooltipDirective implements OnDestroy {
-	// Inputs
-	dragonTooltip = input<string>(''); // Texto del tooltip
-	tooltipTitle = input<string>('');
+
+	dragonTooltip = input<string | undefined>('');
+	tooltipTitle = input<string | undefined>('');
 	tooltipPosition = input<TooltipPosition>('top');
 	tooltipTrigger = input<TooltipTrigger>('hover');
 	tooltipDisabled = input<boolean>(false);
@@ -37,7 +37,6 @@ export class TooltipDirective implements OnDestroy {
 	private hideTimeout?: ReturnType<typeof setTimeout>;
 
 	constructor() {
-		// Effect para cerrar tooltip si se deshabilita
 		effect(() => {
 			if (this.tooltipDisabled()) {
 				this.hide();
@@ -104,7 +103,6 @@ export class TooltipDirective implements OnDestroy {
 				panelClass: 'dragon-tooltip-panel'
 			});
 
-			// Cerrar al hacer click fuera (solo para trigger click)
 			if (this.tooltipTrigger() === 'click') {
 				this.overlayRef.backdropClick().subscribe(() => this.hide());
 			}
@@ -113,12 +111,10 @@ export class TooltipDirective implements OnDestroy {
 		const tooltipPortal = new ComponentPortal(TooltipComponent, this.viewContainerRef);
 		this.tooltipRef = this.overlayRef.attach(tooltipPortal);
 
-		// Pasar datos al componente
-		this.tooltipRef.instance.title.set(this.tooltipTitle());
-		this.tooltipRef.instance.content.set(this.dragonTooltip());
+		this.tooltipRef.instance.title.set(this.tooltipTitle()!);
+		this.tooltipRef.instance.content.set(this.dragonTooltip()!);
 		this.tooltipRef.instance.position.set(this.tooltipPosition());
 
-		// Evento para cerrar con delay al salir del tooltip
 		if (this.tooltipTrigger() === 'hover') {
 			this.tooltipRef.location.nativeElement.addEventListener('mouseenter', () => {
 				this.clearHideTimeout();

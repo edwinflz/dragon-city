@@ -49,7 +49,9 @@
 									"maximumError": "8kB"
 								}
 							],
-							"outputHashing": "all"
+							"outputHashing": "all",
+							"outputPath": "dist/dragon-city",
+							"baseHref": "/dragon-city/"
 						},
 						"development": {
 							"optimization": false,

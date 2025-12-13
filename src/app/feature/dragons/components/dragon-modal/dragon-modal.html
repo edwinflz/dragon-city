@@ -1,0 +1,76 @@
+@if (isOpen()) {
+	<div class="modal-overlay" (click)="onBackdropClick($event)">
+		<div class="modal-container">
+
+			<div class="modal-header">
+
+				<div class="modal-title-section">
+					<h2 class="modal-title">{{ dragon().name }}</h2>
+					
+					<div class="modal-elements-header">
+						@for (element of dragon().elements; track $index) {
+							<div class="element-badge" [class.element-hovered]="isElementHovered(element)"
+								(mouseenter)="onHeaderElementHover(element)"
+								(mouseleave)="onHeaderElementLeave()">
+								<img [src]="element" class="element-image">
+							</div>
+						}
+					</div>
+				</div>
+
+				<button class="modal-close" (click)="onClose()">
+					<span>✕</span>
+				</button>
+			</div>
+
+			<div class="modal-content">
+
+				<section class="modal-section modal-section-skins">
+					<div class="section-header">
+						<img src="images/skills/ic-dragon-skin-badge.png" alt="Skins" class="section-icon">
+						<h3 class="section-title">Skins / Apariencias</h3>
+					</div>
+
+					<div class="skins-grid">
+						@for (skin of dragon().skins; track $index) {
+							<app-dragon-skin-card [skin]="skin" [rarity]="dragon().rarity" />
+						}
+					</div>
+				</section>
+
+				<div class="modal-elements-wrapper">
+
+					<section class="modal-section">
+						<div class="section-header">
+							<img src="images/skills/ic-boost-attack.png" alt="Critical" class="section-icon">
+							<h3 class="section-title">Daño Crítico</h3>
+						</div>
+
+						<div class="elements-grid">
+							@for (element of dragon().criticalElements; track $index) {
+								<div class="element-badge" [class]="getElementHighlightClass(element)">
+									<img [src]="element" alt="Critical element" class="element-image">
+								</div>
+							}
+						</div>
+					</section>
+
+					<section class="modal-section">
+						<div class="section-header">
+							<img src="images/skills/ic-penalty-attack.png" alt="Weakness" class="section-icon">
+							<h3 class="section-title">Debilidades</h3>
+						</div>
+
+						<div class="elements-grid">
+							@for (element of dragon().weakElements; track $index) {
+								<div class="element-badge" [class]="getElementHighlightClass(element)">
+									<img [src]="element" alt="Weak element" class="element-image">
+								</div>
+							}
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+}

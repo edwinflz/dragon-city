@@ -4,6 +4,8 @@
 	</div>
 
 	<div class="cards-grid">
-		<app-dragon-card />
+		@for(dragon of dragons; track dragon.id) {
+			<app-dragon-card  [dragon]="dragon" />
+		}
 	</div>
 </div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DragonTooltip } from './dragon-tooltip';
+import { DragonSkinCard } from './dragon-skin-card';
 
-describe('DragonTooltip', () => {
-  let component: DragonTooltip;
-  let fixture: ComponentFixture<DragonTooltip>;
+describe('DragonSkinCard', () => {
+  let component: DragonSkinCard;
+  let fixture: ComponentFixture<DragonSkinCard>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DragonTooltip]
+      imports: [DragonSkinCard]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DragonTooltip);
+    fixture = TestBed.createComponent(DragonSkinCard);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

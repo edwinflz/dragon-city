@@ -1,0 +1,195 @@
+@use 'variables' as var;
+@use 'mixins' as mixin;
+@use 'colors' as color;
+@use 'sass:list';
+
+.skin-card-wrapper {
+	perspective: 1000px;
+	width: 280px;
+	height: 420px;
+	cursor: pointer;
+}
+
+.skin-card {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.6s;
+	transform-style: preserve-3d;
+
+	&.is-flipped {
+		transform: rotateY(180deg);
+	}
+}
+
+.skin-card-face {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+.skin-card-front {
+	z-index: 2;
+}
+
+.skin-card-back {
+	transform: rotateY(180deg);
+}
+
+.skin-benefits {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 24px 20px !important;
+	min-height: 360px;
+}
+
+.benefits-title {
+	text-align: center;
+	font-size: 18px;
+	font-weight: var.$font-weight-bold;
+	color: color.$text-white;
+	margin: 0 0 20px 0;
+	@include mixin.dragon-name-shadow;
+	letter-spacing: 0.5px;
+}
+
+.benefits-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.benefit-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	margin-bottom: 14px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: color.$text-white;
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.benefit-bullet {
+	color: rgba(255, 255, 255, 0.9);
+	font-size: 14px;
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+
+.benefit-text {
+	flex: 1;
+	font-weight: var.$font-weight-medium;
+}
+
+.flip-hint {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 11px;
+	color: rgba(255, 255, 255, 0.7);
+	font-style: italic;
+}
+
+.card-container {
+	background: color.$card-bg;
+	border-radius: var.$card-border-radius;
+	padding: var.$card-padding;
+	@include mixin.card-shadow;
+	transition: var.$transition-normal;
+	cursor: pointer;
+
+	--card-color-start: #{color.$default-card-start};
+	--card-color-end: #{color.$default-card-end};
+
+	@each $name, $colors in var.$color-variants {
+		&--#{$name} {
+			--card-color-start: #{list.nth($colors, 1)};
+			--card-color-end: #{list.nth($colors, 2)};
+		}
+	}
+
+	&:hover {
+		@include mixin.card-hover-lift;
+		@include mixin.card-shadow-hover;
+
+		.dragon-image {
+			@include mixin.dragon-image-hover-scale;
+		}
+
+		.card-content::after {
+			@include mixin.shimmer-overlay;
+		}
+	}
+}
+
+.card-content {
+	position: relative;
+	@include mixin.dragon-scales-pattern;
+	border-radius: var.$content-border-radius;
+	padding: var.$card-content-padding;
+	@include mixin.card-content-shadow;
+}
+
+.bite-cover {
+	position: absolute;
+	top: var.$bite-cover-offset;
+	left: var.$bite-cover-offset;
+	width: var.$bite-cover-size;
+	height: var.$bite-cover-size;
+	background: color.$white;
+	z-index: var.$z-index-content;
+	pointer-events: none;
+	border-radius: 0 0 100% 0;
+}
+
+.dragon-badge {
+	position: absolute;
+	top: var.$badge-position;
+	left: var.$badge-position;
+	width: var.$badge-size;
+	height: var.$badge-size;
+	z-index: var.$z-index-badge;
+	@include mixin.flex-center;
+	border-radius: 50%;
+	@include mixin.badge-gradient;
+	@include mixin.badge-shadow;
+	font-size: var.$badge-font-size;
+
+	img {
+		width: 48px;
+		background-size: cover;
+	}
+}
+
+.dragon-image-container {
+	@include mixin.flex-center;
+	height: var.$dragon-image-height;
+	margin: var.$dragon-image-margin;
+	position: relative;
+	z-index: var.$z-index-content;
+}
+
+.dragon-image {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	@include mixin.dragon-image-transition;
+	@include mixin.dragon-image-shadow;
+}
+
+.dragon-name {
+	text-align: center;
+	font-size: var.$dragon-name-font-size;
+	font-weight: var.$font-weight-bold;
+	color: color.$text-white;
+	margin: var.$dragon-name-margin;
+	@include mixin.dragon-name-shadow;
+	letter-spacing: var.$dragon-name-letter-spacing;
+}

@@ -1,0 +1,43 @@
+<div class="skin-card-wrapper" (click)="onToggleFlip()">
+	<div class="skin-card" [class.is-flipped]="isFlipped()" [class]="rarity() | dragonSkinColor">
+
+		<div class="skin-card-face skin-card-front">
+			<div [class]="rarity() | dragonRarityColor">
+				<div class="card-content">
+					<span class="bite-cover"></span>
+
+					<div class="dragon-badge">
+						<img [src]="skin().rankIcon" [alt]="skin().rank">
+					</div>
+
+					<div class="dragon-image-container">
+						<img [src]="skin().image" [alt]="skin().name" class="dragon-image">
+					</div>
+
+					<h3 class="dragon-name">{{ skin().name }}</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="skin-card-face skin-card-back">
+			<div [class]="rarity() | dragonRarityColor">
+				<div class="card-content skin-benefits">
+					<h4 class="benefits-title">Ventajas de la Skin</h4>
+
+					<ul class="benefits-list">
+						@for (benefit of skin().benefits; track $index) {
+							<li class="benefit-item">
+								<span class="benefit-bullet">✦</span>
+								<span class="benefit-text">{{ benefit }}</span>
+							</li>
+						}
+					</ul>
+
+					<div class="flip-hint">
+						<span>← Click para volver</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
