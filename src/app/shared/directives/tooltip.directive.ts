@@ -65,7 +65,18 @@ export class TooltipDirective implements OnDestroy {
 		}
 	}
 
+	private hasContent(): boolean {
+		const title = this.tooltipTitle();
+		const content = this.dragonTooltip();
+
+		return !!(title || content);
+	}
+
 	private show(): void {
+		if (!this.hasContent()) {
+			return;
+		}
+		
 		if (this.overlayRef?.hasAttached()) {
 			return;
 		}

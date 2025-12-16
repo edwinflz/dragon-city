@@ -25,11 +25,20 @@ export enum DragonSkill {
 	Green = 'images/skills/green-skill.png',
 	Earth = 'images/skills/earth-skill.png',
 	Wind = 'images/skills/wind-skill.png',
+	Electric = 'images/skills/electric-skill.png',
+	Primal = 'images/skills/primal-skill.png',
+	Fire = 'images/skills/fire-skill.png',
+	Light = 'images/skills/light-skill.png',
+	Chaos = 'images/skills/chaos-skill.png',
+	Dark = 'images/skills/dark-skill.png',
+	Water = 'images/skills/water-skill.png',
+	Pure = 'images/skills/pure-skill.png',
 }
 
 export enum DragonStrongSkill {
 	StrongSkill = 'images/skills/ic-strong-skill.png',
-	StrongSkill4 = 'images/skills/ic-strong-skill-4.png'
+	StrongSkill3 = 'images/skills/bt_special_attack.png',
+	StrongSkill4 = 'images/skills/ic-strong-skill-4.png',
 }
 
 export enum DragonElement {

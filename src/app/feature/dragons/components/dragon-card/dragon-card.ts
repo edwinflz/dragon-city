@@ -1,7 +1,7 @@
 import { Component, input, signal } from '@angular/core';
 import { DragonFamilyImagePipe, DragonFamilyLabelPipe, DragonRarityImagePipe, DragonRarityLabelPipe, DragonSpecialSkillImagePipe, TooltipDirective, DragonRarityColorPipe } from '@shared/index';
 import { DragonModal } from '../dragon-modal/dragon-modal';
-import { Dragon } from '@dragons/models/dragon.model';
+import { Dragon, DragonStrongSkill } from '@dragons/models/dragon.model';
 
 @Component({
 	selector: 'app-dragon-card',
@@ -15,6 +15,8 @@ export class DragonCard {
 	dragon = input.required<Dragon>();
 
 	isModalOpen = signal(false);
+
+	readonly strongSkillType = DragonStrongSkill;
 
 	openModal(): void {
 		this.isModalOpen.set(true);

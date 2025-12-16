@@ -27,7 +27,8 @@
 					<div class="element-icon" [dragonTooltip]="skill.description"
 						[tooltipTitle]="skill.name" tooltipPosition="top" tooltipTrigger="hover">
 						<img [src]="skill.image" alt="Dream" class="skill-base">
-						<img [src]="skill.strongSkill" alt="Strong" class="skill-overlay">
+						<img [src]="skill.strongSkill" alt="Strong" class="skill-overlay" 
+						[class.skill-overlay-small]="skill.strongSkill === strongSkillType.StrongSkill3">
 					</div>
 				} @else {	
 				<div class="element-icon">

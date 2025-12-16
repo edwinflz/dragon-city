@@ -6,7 +6,9 @@
 				<div class="card-content">
 					<span class="bite-cover"></span>
 
-					<div class="dragon-badge">
+					<div class="dragon-badge skin-rank-badge" [class]="getRankHighlightClass()"
+						[class.rank-hovered]="isRankHovered()" (mouseenter)="onRankHover()"
+						(mouseleave)="onRankLeave()">
 						<img [src]="skin().rankIcon" [alt]="skin().rank">
 					</div>
 
@@ -26,10 +28,10 @@
 
 					<ul class="benefits-list">
 						@for (benefit of skin().benefits; track $index) {
-							<li class="benefit-item">
-								<span class="benefit-bullet">✦</span>
-								<span class="benefit-text">{{ benefit }}</span>
-							</li>
+						<li class="benefit-item">
+							<span class="benefit-bullet">✦</span>
+							<span class="benefit-text">{{ benefit }}</span>
+						</li>
 						}
 					</ul>
 

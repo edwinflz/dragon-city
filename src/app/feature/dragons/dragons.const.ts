@@ -32,7 +32,7 @@ export const DRAGONS = [
 				rank: DragonSkinRankLabel.AA,
 				rankIcon: DragonSkinRank.AA,
 				benefits: [
-					'La cantidad de marcas de fatalidad que aplica la habilidad Marca maldita aumenta de 1 a 2.',
+					'La cantidad de marcas de perdición que aplica la habilidad Marca maldita aumenta de 1 a 2.',
 					'El poder de la habilidad Baile maldito aumenta de 1,700 a 2,100.',
 					'Los turnos de enfriamiento (cooldown) de la habilidad Baile maldito se reducen de 3 a 2.',
 				]
@@ -67,6 +67,140 @@ export const DRAGONS = [
 			},
 			{
 				image: DragonSkill.Wind,
+			}
+		]
+	},
+	{
+		id: 2,
+		name: 'Dragón tambor maldito',
+		rarity: DragonRarity.Legendary,
+		image: 'images/dragons/dragon_doomdrummer.png',
+		specialSkillTitle: 'Marca Maldita',
+		specialSkillDescription: 'Aplica Marca maldita cuando el usuario está noqueado.',
+		specialSkillType: DragonSpecialSkill.Passive,
+		category: DragonCategory.Category9,
+		family: DragonFamily.Doom,
+		elements: [DragonElement.Electric, DragonElement.Primal, DragonElement.Fire, DragonElement.Light],
+		criticalElements: [
+			DragonElement.Water,
+			DragonElement.Metal,
+			DragonElement.Pure,
+			DragonElement.Green,
+			DragonElement.Ice,
+			DragonElement.Electric,
+			DragonElement.Dark,
+		],
+		weakElements: [
+			DragonElement.Earth,
+			DragonElement.Light
+		],
+		skins: [
+			{
+				name: 'Ritual Skill Skin',
+				image: 'images/skins/dragon_doomdrummer_skin1.png',
+				rank: DragonSkinRankLabel.AA,
+				rankIcon: DragonSkinRank.AA,
+				benefits: [
+					'La cantidad de marcas de perdición que aplica la habilidad Marca maldita aumenta de 2 a 3.',
+					'El poder de la habilidad Tambor maldito aumenta de 1,800 a 2,100.',
+					'Los turnos de enfriamiento (cooldown) de la habilidad Tambor maldito se reducen de 3 a 2',
+				]
+			},
+			{
+				name: 'Drummer Skill Skin',
+				image: 'images/skins/dragon_doomdrummer_skin2.png',
+				rank: DragonSkinRankLabel.A_PLUS,
+				rankIcon: DragonSkinRank.A_PLUS,
+				benefits: [
+					'Aumenta en un 25% la salud y el daño del dragón.',
+				]
+			}
+		],
+		skills: [
+			{
+				name: 'Tambor maldito',
+				image: DragonSkill.Electric,
+				description: 'Provoca daño y aplica 2 Marcas malditas.',
+				isSpecial: true,
+				strongSkill: DragonStrongSkill.StrongSkill
+			},
+			{
+				image: DragonSkill.Primal,
+			},
+			{
+				image: DragonSkill.Fire,
+			},
+			{
+				image: DragonSkill.Light,
+			}
+		]
+	},
+	{
+		id: 3,
+		name: 'Noble dragón sacerdotisa mortal',
+		rarity: DragonRarity.Heroic,
+		image: 'images/dragons/dragon_highdoompriestess.png',
+		specialSkillTitle: 'Marca Maldita',
+		specialSkillDescription: 'Aplica una Marca maldita al unirse de forma activa a la batalla.',
+		specialSkillType: DragonSpecialSkill.Passive,
+		category: DragonCategory.Category11,
+		family: DragonFamily.Doom,
+		elements: [DragonElement.Chaos, DragonElement.Dark, DragonElement.Water, DragonElement.Pure],
+		criticalElements: [
+			DragonElement.Magic,
+			DragonElement.Soul,
+			DragonElement.Metal,
+			DragonElement.Light,
+			DragonElement.Fire,
+			DragonElement.War,
+			DragonElement.Wind,
+		],
+		weakElements: [
+			DragonElement.Dream,
+			DragonElement.Happiness
+		],
+		skins: [
+			{
+				name: 'Autumn Skill Skin',
+				image: 'images/skins/dragon_highdoompriestess_skin1.png',
+				rank: DragonSkinRankLabel.A_PLUS,
+				rankIcon: DragonSkinRank.A_PLUS,
+				benefits: [
+					'La cantidad de marcas de perdición que aplica la habilidad Marca Maldita aumenta de 1 a 3.',
+				]
+			},
+			{
+				name: 'Skeleton Skill Skin',
+				image: 'images/skins/dragon_highdoompriestess_skin2.png',
+				rank: DragonSkinRankLabel.AA,
+				rankIcon: DragonSkinRank.AA,
+				benefits: [
+					'Aumenta en un 25% la salud y el daño del dragón.',
+				]
+			}
+		],
+		skills: [
+			{
+				name: 'Los marcados',
+				image: DragonSkill.Chaos,
+				description: 'Provoca daño y aplica 2 Marcas malditas.',
+				isSpecial: true,
+				strongSkill: DragonStrongSkill.StrongSkill
+			},
+			{
+				name: 'Visión sacerdotisa',
+				image: DragonSkill.Dark,
+				description: 'Daña a todos los oponentes, pero el usuario también recibe daño.',
+				isSpecial: true,
+				strongSkill: DragonStrongSkill.StrongSkill
+			},
+			{
+				image: DragonSkill.Water,
+				isSpecial: true,
+				strongSkill: DragonStrongSkill.StrongSkill3
+			},
+			{
+				image: DragonSkill.Pure,
 			}
 		]
 	}

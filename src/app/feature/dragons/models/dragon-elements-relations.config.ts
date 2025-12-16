@@ -1,4 +1,4 @@
-import { DragonElement } from './dragon.model';
+import { DragonElement, DragonSkinRankLabel } from './dragon.model';
 
 export interface ElementRelations {
 	strong: DragonElement[];
@@ -93,6 +93,22 @@ export const ELEMENT_RELATIONS: Record<DragonElement, ElementRelations> = {
 		weak: [DragonElement.Soul, DragonElement.Beauty]
 	},
 };
+
+export const SKIN_RANK_VALUES: Record<DragonSkinRankLabel, number> = {
+	[DragonSkinRankLabel.SS]: 8,
+	[DragonSkinRankLabel.S_PLUS]: 7,
+	[DragonSkinRankLabel.S]: 6,
+	[DragonSkinRankLabel.S_MINUS]: 5,
+	[DragonSkinRankLabel.A_PLUS]: 4,
+	[DragonSkinRankLabel.AA]: 3,
+	[DragonSkinRankLabel.A]: 2,
+	[DragonSkinRankLabel.A_MINUS]: 1
+};
+
+
+export function getSkinRankValue(rank: DragonSkinRankLabel): number {
+	return SKIN_RANK_VALUES[rank];
+}
 
 export function getStrongAgainst(element: DragonElement): DragonElement[] {
   return ELEMENT_RELATIONS[element]?.strong || [];
