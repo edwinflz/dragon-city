@@ -1,0 +1,286 @@
+<div class="dragon-form-container">
+	<h1 class="form-title">🐉 Crear Nuevo Dragón</h1>
+
+	<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+		<section class="form-section">
+			<h2>Información Básica</h2>
+
+			<div class="form-row">
+
+				<div class="form-field form-field-id">
+					<label>ID * <span class="id-info">(Próximo disponible: {{ nextAvailableId() }})</span></label>
+
+					<div class="id-input-group">
+						<input type="number" formControlName="id" placeholder="ID del dragón"
+							[class.input-error]="idError()">
+						<button type="button" class="btn-use-next-id" (click)="useNextAvailableId()"
+							title="Usar próximo ID disponible">
+							Usar {{ nextAvailableId() }}
+						</button>
+					</div>
+
+					@if (idError()) {
+						<div class="id-error-message">
+							{{ idError() }}
+						</div>
+
+						<div class="id-suggestions">
+							<span class="suggestions-label">IDs disponibles:</span>
+							@for (suggestedId of idSuggestions(); track suggestedId) {
+								<button type="button" class="btn-suggestion" (click)="useSuggestedId(suggestedId)">
+									{{ suggestedId }}
+								</button>
+							}
+						</div>
+					}
+
+					<div class="used-ids-info">
+						<details>
+							<summary>IDs usados ({{ usedIds().length }})</summary>
+							<div class="used-ids-list">
+								@for (id of usedIds(); track id) {
+									<span class="used-id-badge">{{ id }}</span>
+								}
+							</div>
+						</details>
+					</div>
+				</div>
+
+				<!-- Campo de Nombre - SIN CAMBIOS -->
+				<div class="form-field">
+					<label>Nombre *</label>
+					<input type="text" formControlName="name" placeholder="Dragón bailarín maldito">
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>Rareza *</label>
+					<select formControlName="rarity">
+						@for (rarity of rarities; track rarity) {
+							<option [value]="rarity">{{ rarity }}</option>
+						}
+					</select>
+				</div>
+
+				<div class="form-field">
+					<label>Categoría *</label>
+					<select formControlName="category">
+						@for (category of categories; track category) {
+							<option [value]="category">{{ category }}</option>
+						}
+					</select>
+				</div>
+
+				<div class="form-field">
+					<label>Familia *</label>
+					<select formControlName="family">
+						@for (family of families; track family) {
+							<option [value]="family">{{ family }}</option>
+						}
+					</select>
+				</div>
+			</div>
+
+			<div class="form-field">
+				<label>Imagen (ruta) *</label>
+				<input type="text" formControlName="image" placeholder="images/dragons/dragon_name.png">
+			</div>
+		</section>
+
+		<section class="form-section">
+			<h2>Habilidad Especial</h2>
+
+			<div class="form-field">
+				<label>Título</label>
+				<input type="text" formControlName="specialSkillTitle" placeholder="Marca Maldita">
+			</div>
+
+			<div class="form-field">
+				<label>Descripción</label>
+				<textarea formControlName="specialSkillDescription" rows="2"
+					placeholder="Aplica una Marca maldita al unirse..."></textarea>
+			</div>
+
+			<div class="form-field">
+				<label>Tipo *</label>
+				<select formControlName="specialSkillType">
+					@for (type of specialSkillTypes; track type) {
+						<option [value]="type">{{ type }}</option>
+					}
+				</select>
+			</div>
+		</section>
+
+		<section class="form-section">
+			<h2>Elementos del Dragón *</h2>
+			<button type="button" class="btn-add" (click)="addElement()">+ Agregar Elemento</button>
+
+			<div class="array-items">
+				@for (control of elementsArray.controls; track $index) {
+					<div class="array-item">
+						<select [formControl]="$any(control)">
+							@for (element of elements; track element) {
+								<option [value]="element">{{ element }}</option>
+							}
+						</select>
+						<button type="button" class="btn-remove" (click)="removeElement($index)">✕</button>
+					</div>
+				}
+			</div>
+		</section>
+
+		<section class="form-section">
+			<h2>Elementos Críticos *</h2>
+			<button type="button" class="btn-add" (click)="addCriticalElement()">+ Agregar Crítico</button>
+
+			<div class="array-items">
+				@for (control of criticalElementsArray.controls; track $index) {
+					<div class="array-item">
+						<select [formControl]="$any(control)">
+							@for (element of elements; track element) {
+								<option [value]="element">{{ element }}</option>
+							}
+						</select>
+						<button type="button" class="btn-remove" (click)="removeCriticalElement($index)">✕</button>
+					</div>
+				}
+			</div>
+		</section>
+
+		<section class="form-section">
+			<h2>Debilidades *</h2>
+			<button type="button" class="btn-add" (click)="addWeakElement()">+ Agregar Debilidad</button>
+
+			<div class="array-items">
+				@for (control of weakElementsArray.controls; track $index) {
+					<div class="array-item">
+						<select [formControl]="$any(control)">
+							@for (element of elements; track element) {
+								<option [value]="element">{{ element }}</option>
+							}
+						</select>
+						<button type="button" class="btn-remove" (click)="removeWeakElement($index)">✕</button>
+					</div>
+				}
+			</div>
+		</section>
+
+		<section class="form-section">
+			<h2>Habilidades *</h2>
+			<button type="button" class="btn-add" (click)="addSkill()">+ Agregar Habilidad</button>
+
+			@for (skillGroup of skillsArray.controls; track $index) {
+				<div class="skill-group" [formGroup]="$any(skillGroup)">
+					<div class="skill-header">
+						<h3>Habilidad {{ $index + 1 }}</h3>
+						<button type="button" class="btn-remove" (click)="removeSkill($index)">Eliminar</button>
+					</div>
+
+					<div class="form-row">
+						<div class="form-field">
+							<label>Nombre</label>
+							<input type="text" formControlName="name">
+						</div>
+
+						<div class="form-field">
+							<label>Imagen *</label>
+							<select formControlName="image">
+								@for (skill of skills; track skill) {
+									<option [value]="skill">{{ skill }}</option>
+								}
+							</select>
+						</div>
+					</div>
+
+					<div class="form-field">
+						<label>Descripción</label>
+						<input type="text" formControlName="description">
+					</div>
+
+					<div class="form-row">
+						<div class="form-field checkbox-field">
+							<label>
+								<input type="checkbox" formControlName="isSpecial">
+								¿Es especial?
+							</label>
+						</div>
+
+						<div class="form-field">
+							<label>Strong Skill</label>
+							<select formControlName="strongSkill">
+								<option [value]="null">Ninguno</option>
+								@for (strongSkill of strongSkills; track strongSkill) {
+									<option [value]="strongSkill">{{ strongSkill }}</option>
+								}
+							</select>
+						</div>
+					</div>
+				</div>
+			}
+		</section>
+
+		<section class="form-section">
+			<h2>Skins</h2>
+			<button type="button" class="btn-add" (click)="addSkin()">+ Agregar Skin</button>
+
+			@for (skinGroup of skinsArray.controls; track $index) {
+				<div class="skin-group" [formGroup]="$any(skinGroup)">
+					<div class="skill-header">
+						<h3>Skin {{ $index + 1 }}</h3>
+						<button type="button" class="btn-remove" (click)="removeSkin($index)">Eliminar</button>
+					</div>
+
+					<div class="form-row">
+						<div class="form-field">
+							<label>Nombre *</label>
+							<input type="text" formControlName="name">
+						</div>
+
+						<div class="form-field">
+							<label>Rank *</label>
+							<select formControlName="rank" (change)="onRankChange($index, $any($event.target).value)">
+								@for (rank of skinRanks; track rank) {
+									<option [value]="rank">{{ rank }}</option>
+								}
+							</select>
+						</div>
+					</div>
+
+					<div class="form-field">
+						<label>Imagen (ruta) *</label>
+						<input type="text" formControlName="image">
+					</div>
+
+					<div class="benefits-section">
+						<label>Beneficios</label>
+						<button type="button" class="btn-add-small" (click)="addSkinBenefit($index)">+ Beneficio</button>
+
+						@for (benefitControl of getSkinBenefits($index).controls; track $index) {
+							<div class="array-item">
+								<input type="text" [formControl]="$any(benefitControl)" placeholder="Beneficio...">
+								<button type="button" class="btn-remove" (click)="removeSkinBenefit($index, $index)">✕</button>
+							</div>
+						}
+					</div>
+				</div>
+			}
+		</section>
+
+		<div class="form-actions">
+			<button type="button" class="btn-secondary" (click)="togglePreview()">
+				{{ showPreview() ? 'Ocultar' : 'Ver' }} Preview
+			</button>
+			<button type="button" class="btn-secondary" (click)="resetForm()">Limpiar Formulario</button>
+			<button type="submit" class="btn-primary" [disabled]="!form.valid">Crear Dragón</button>
+		</div>
+	</form>
+
+
+	@if (showPreview() && dragonPreview()) {
+		<div class="preview-section">
+			<h2>Preview del Código</h2>
+			<pre class="code-preview">{{ generateDragonCode(dragonPreview()!) }}</pre>
+		</div>
+	}
+</div>

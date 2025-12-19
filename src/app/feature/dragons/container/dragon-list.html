@@ -1,11 +1,16 @@
 <div class="container">
 	<div class="header">
 		<h1 class="title">Dragon City</h1>
+		<p class="subtitle">Explora y gestiona tu colección de dragones</p>
+		<button class="btn-create-dragon" (click)="goToCreateDragon()">
+			<span class="btn-icon">+</span>
+			<span class="btn-text">Crear Nuevo Dragón</span>
+		</button>
 	</div>
 
 	<div class="cards-grid">
-		@for(dragon of dragons; track dragon.id) {
-			<app-dragon-card  [dragon]="dragon" />
+		@for(dragon of dragons(); track dragon.id) {
+			<app-dragon-card [dragon]="dragon" />
 		}
 	</div>
 </div>

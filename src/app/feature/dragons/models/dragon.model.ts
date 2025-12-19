@@ -18,6 +18,28 @@ export enum DragonCategory {
 
 export enum DragonFamily {
 	Doom = 'doom',
+	Armor = 'armor',
+	Critical = 'critical',
+	Silencer = 'silencer',
+	Evader = 'evader',
+	Strategist = 'strategist',
+	Extractor = 'extractor',
+	Spikes = 'spikes',
+	Guard = 'guard',
+	Berserk = 'berserk',
+	Quantum = 'quantum',
+	Plasma = 'plasma',
+	Arcana = 'arcana',
+	Eternal = 'eternal',
+	Dual = 'dual',
+	Redemption = 'redemption',
+	Karma = 'karma',
+	Ascended = 'ascended',
+	Corrupted = 'corrupted',
+	Vampire = 'vampire',
+	Titan = 'titan',
+	Mythical = 'mythical',
+	Cyber = 'cyber',
 }
 
 export enum DragonSkill {

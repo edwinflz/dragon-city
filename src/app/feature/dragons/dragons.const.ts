@@ -203,5 +203,76 @@ export const DRAGONS = [
 				image: DragonSkill.Pure,
 			}
 		]
-	}
+	},
+	{
+		id: 4,
+		name: 'Noble dragón volador acorazado',
+		rarity: DragonRarity.Heroic,
+		image: 'images/dragons/dragon_highflightarmored.png',
+		specialSkillTitle: 'Armadura',
+		specialSkillDescription: 'Aplica un 30% de armadura a todos los aliados.',
+		specialSkillType: DragonSpecialSkill.Active,
+		category: DragonCategory.Category11,
+		family: DragonFamily.Armor,
+		elements: [DragonElement.Primal, DragonElement.Green, DragonElement.Pure, DragonElement.Chaos],
+		criticalElements: [
+			DragonElement.Pure,
+			DragonElement.Water,
+			DragonElement.Light,
+			DragonElement.Wind,
+			DragonElement.Magic,
+			DragonElement.Soul
+		],
+		weakElements: [
+			DragonElement.Legend
+		],
+		skins: [
+			{
+				name: 'Vined Skill Skin',
+				image: 'images/skins/dragon_highflightarmored_skin1.png',
+				rank: DragonSkinRankLabel.AA,
+				rankIcon: DragonSkinRank.AA,
+				benefits: [
+					'El poder de la habilidad Quitaenredaderas aumenta de 1.600 a 2.000.',
+					'El multiplicador de curación de la habilidad Quitaenredaderas aumenta de x1,5 a x1,7.',
+					'La habilidad Quitaenredaderas pasa a llamarse Drenaje de Manglar.',
+					'El poder de la habilidad Armadura voladora aumenta de 1.650 a 2.100.',
+					'La segunda barra de vida de la habilidad Armadura voladora aumenta de 30 % a 35 %.',
+					'El tiempo de reutilización de la habilidad Armadura voladora se reduce de 3 a 2 turnos.',
+					'La habilidad Armadura voladora pasa a llamarse Armadura Cielo Alto.'
+				]
+			},
+			{
+				name: 'Plated Skill Skin',
+				image: 'images/skins/dragon_highflightarmored_skin2.png',
+				rank: DragonSkinRankLabel.AA,
+				rankIcon: DragonSkinRank.AA,
+				benefits: [
+					'Incrementa en un 25 % las estadísticas de salud y daño del dragón.'
+				]
+			}
+		],
+		skills: [
+			{
+				image: DragonSkill.Primal,
+			},
+			{
+				name: 'Quitaenredaderas',
+				image: DragonSkill.Green,
+				description: 'Provoca daño y cura solo a los aliados.',
+				isSpecial: true,
+				strongSkill: DragonStrongSkill.StrongSkill
+			},
+			{
+				name: 'Armadura voladora',
+				image: DragonSkill.Pure,
+				description: 'Provoca daño y aplica un 30% de armadura al usuario.',
+				isSpecial: true,
+				strongSkill: DragonStrongSkill.StrongSkill
+			},
+			{
+				image: DragonSkill.Chaos,
+			}
+		]
+	},
 ]
