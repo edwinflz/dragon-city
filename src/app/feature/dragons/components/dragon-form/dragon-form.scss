@@ -562,3 +562,62 @@ form {
 		}
 	}
 }
+
+// Estilos para ng-select con imágenes
+::ng-deep {
+	.ng-select {
+		.ng-select-container {
+			border: 2px solid #e0e0e0;
+			border-radius: 8px;
+			min-height: 45px;
+			transition: all 0.3s ease;
+
+			&:hover {
+				border-color: #667eea;
+			}
+		}
+
+		&.ng-select-focused {
+			.ng-select-container {
+				border-color: #667eea;
+				box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+			}
+		}
+	}
+}
+
+.select-label,
+.select-option {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 4px 0;
+}
+
+.select-image {
+	width: 32px;
+	height: 32px;
+	object-fit: contain;
+	border-radius: 4px;
+}
+
+.select-option {
+	padding: 8px 12px;
+	cursor: pointer;
+	transition: background 0.2s ease;
+
+	&:hover {
+		background: rgba(102, 126, 234, 0.1);
+	}
+}
+
+.select-option-image {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+	border-radius: 4px;
+}
+
+.select-element {
+	width: 400px;
+}

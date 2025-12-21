@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-	"build:prod": "ng build --configuration production --base-href /dragon-city/",
+    "build:prod": "ng build --configuration production --base-href /dragon-city/",
     "deploy": "ng build --configuration production --base-href /dragon-city/ && npx angular-cli-ghpages --dir=dist/dragon-city/browser"
   },
   "prettier": {
@@ -31,6 +31,7 @@
     "@angular/forms": "^20.2.0",
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
+    "@ng-select/ng-select": "^20.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

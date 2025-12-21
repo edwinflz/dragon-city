@@ -1,18 +1,25 @@
 import { Component, output, signal, computed, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import {
 	Dragon, DragonRarity, DragonSpecialSkill, DragonCategory, DragonFamily, DragonElement,
 	DragonSkill, DragonStrongSkill, DragonSkinRankLabel, DragonSkinRank
 } from '@dragons/models/dragon.model';
 import { getIdSuggestions, getNextAvailableId, getUsedDragonIds, isIdAvailable } from '@dragons/utils/dragon-id.utils';
+import {
+	getElementOptions,
+	getSkillOptions,
+	getStrongSkillOptions,
+	getSkinRankOptions
+} from '@dragons/utils/select-options.utils';
 
 @Component({
 	selector: 'app-dragon-form',
 	standalone: true,
-	imports: [CommonModule, ReactiveFormsModule],
+	imports: [CommonModule, NgSelectModule, ReactiveFormsModule],
 	templateUrl: './dragon-form.html',
-	styleUrls: ['./dragon-form.scss']
+	styleUrls: ['./dragon-form.scss'],
 })
 export class DragonForm {
 	dragonCreated = output<Dragon>();
@@ -23,10 +30,11 @@ export class DragonForm {
 	readonly specialSkillTypes = Object.values(DragonSpecialSkill);
 	readonly categories = Object.values(DragonCategory);
 	readonly families = Object.values(DragonFamily);
-	readonly elements = Object.values(DragonElement);
-	readonly skills = Object.values(DragonSkill);
-	readonly strongSkills = Object.values(DragonStrongSkill);
-	readonly skinRanks = Object.values(DragonSkinRankLabel);
+
+	readonly elementOptions = getElementOptions();
+	readonly skillOptions = getSkillOptions();
+	readonly strongSkillOptions = getStrongSkillOptions();
+	readonly skinRankOptions = getSkinRankOptions();
 
 	form: FormGroup;
 	showPreview = signal(false);
@@ -46,12 +54,10 @@ export class DragonForm {
 			id: [null, Validators.required],
 			name: ['', Validators.required],
 			rarity: [DragonRarity.Heroic, Validators.required],
-			image: ['', Validators.required],
-			specialSkillTitle: [''],
-			specialSkillDescription: [''],
-			specialSkillType: [DragonSpecialSkill.Passive, Validators.required],
+			image: ['images/dragons/', Validators.required],
+			specialSkills: this.fb.array([]),
 			category: [DragonCategory.Category9, Validators.required],
-			family: [DragonFamily.Doom, Validators.required],
+			family: [],
 			elements: this.fb.array([], Validators.required),
 			criticalElements: this.fb.array([], Validators.required),
 			weakElements: this.fb.array([], Validators.required),
@@ -89,6 +95,10 @@ export class DragonForm {
 		return this.form.get('skills') as FormArray;
 	}
 
+	get specialSkillsArray(): FormArray {
+		return this.form.get('specialSkills') as FormArray;
+	}
+
 	validateId(id: number): void {
 		if (!id || id < 1) {
 			this.idError.set('El ID debe ser mayor a 0');
@@ -111,7 +121,7 @@ export class DragonForm {
 	}
 
 	addElement(): void {
-		this.elementsArray.push(this.fb.control(this.elements[0]));
+		this.elementsArray.push(this.fb.control(this.elementOptions[0].value));
 	}
 
 	removeElement(index: number): void {
@@ -119,7 +129,7 @@ export class DragonForm {
 	}
 
 	addCriticalElement(): void {
-		this.criticalElementsArray.push(this.fb.control(this.elements[0]));
+		this.criticalElementsArray.push(this.fb.control(this.elementOptions[0].value));
 	}
 
 	removeCriticalElement(index: number): void {
@@ -127,17 +137,30 @@ export class DragonForm {
 	}
 
 	addWeakElement(): void {
-		this.weakElementsArray.push(this.fb.control(this.elements[0]));
+		this.weakElementsArray.push(this.fb.control(this.elementOptions[0].value));
 	}
 
 	removeWeakElement(index: number): void {
 		this.weakElementsArray.removeAt(index);
 	}
 
+	addSpecialSkill(): void {
+		const specialSkillGroup = this.fb.group({
+			title: [''],
+			description: [''],
+			type: [DragonSpecialSkill.Passive, Validators.required]
+		});
+		this.specialSkillsArray.push(specialSkillGroup);
+	}
+
+	removeSpecialSkill(index: number): void {
+		this.specialSkillsArray.removeAt(index);
+	}
+
 	addSkin(): void {
 		const skinGroup = this.fb.group({
 			name: ['', Validators.required],
-			image: ['', Validators.required],
+			image: ['images/skins/', Validators.required],
 			rank: [DragonSkinRankLabel.A, Validators.required],
 			rankIcon: [DragonSkinRank.A, Validators.required],
 			benefits: this.fb.array([this.fb.control('')])
@@ -180,7 +203,7 @@ export class DragonForm {
 	addSkill(): void {
 		const skillGroup = this.fb.group({
 			name: [''],
-			image: [this.skills[0], Validators.required],
+			image: [this.skillOptions[0].value, Validators.required],
 			description: [''],
 			isSpecial: [false],
 			strongSkill: [null]
@@ -220,9 +243,9 @@ export class DragonForm {
 		this.form.reset({
 			id: newId,
 			rarity: DragonRarity.Heroic,
-			specialSkillType: DragonSpecialSkill.Passive,
 			category: DragonCategory.Category9,
-			family: DragonFamily.Doom
+			image: 'images/dragons/',
+			family: null
 		});
 
 		this.idError.set('');
@@ -232,6 +255,7 @@ export class DragonForm {
 		while (this.weakElementsArray.length) this.weakElementsArray.removeAt(0);
 		while (this.skinsArray.length) this.skinsArray.removeAt(0);
 		while (this.skillsArray.length) this.skillsArray.removeAt(0);
+		while (this.specialSkillsArray.length) this.specialSkillsArray.removeAt(0);
 	}
 
 	togglePreview(): void {
@@ -249,11 +273,15 @@ export class DragonForm {
 	name: '${dragon.name}',
 	rarity: DragonRarity.${this.getRarityKey(dragon.rarity)},
 	image: '${dragon.image}',
-	specialSkillTitle: '${dragon.specialSkillTitle || ''}',
-	specialSkillDescription: '${dragon.specialSkillDescription || ''}',
-	specialSkillType: DragonSpecialSkill.${this.getSpecialSkillKey(dragon.specialSkillType)},
+	specialSkills: [
+		${dragon.specialSkills?.map(ss => `{
+			title: '${ss.title}',
+			description: '${ss.description}',
+			type: DragonSpecialSkill.${this.getSpecialSkillKey(ss.type)}
+		}`).join(',\n\t\t') || ''}
+	],
 	category: DragonCategory.${this.getCategoryKey(dragon.category)},
-	family: DragonFamily.${this.getFamilyKey(dragon.family)},
+	family: ${dragon.family ? `DragonFamily.${this.getFamilyKey(dragon.family)}` : 'undefined'},
 	elements: [${dragon.elements.map(e => `DragonElement.${this.getElementKey(e)}`).join(', ')}],
 	criticalElements: [
 		${dragon.criticalElements.map(e => `DragonElement.${this.getElementKey(e)}`).join(',\n\t\t')}

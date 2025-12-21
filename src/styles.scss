@@ -2,6 +2,7 @@
 @use 'styles/variables' as *;
 @use 'styles/mixins' as *;
 @use 'styles/colors' as *;
+@import '@ng-select/ng-select/themes/default.theme.css';
 
 * {
 	margin: 0;

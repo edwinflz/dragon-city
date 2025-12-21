@@ -4,22 +4,33 @@
 		<div class="dragon-badge" dragonTooltip [tooltipTitle]="dragon().rarity | dragonRarityLabel" tooltipPosition="top" tooltipTrigger="hover">
 			<img [src]="dragon().rarity | dragonRarityImage">
 		</div>
+
+		@if (dragon() && dragon().specialSkills.length > 0) {
+			@for (specialSkill of dragon().specialSkills; track $index) {
+				<div 
+					class="dragon-skill-special"
+					[class]="'dragon-skill-special--' + $index"
+					[dragonTooltip]="specialSkill.description"
+					[tooltipTitle]="specialSkill.title" 
+					tooltipPosition="top" 
+					tooltipTrigger="hover">
+					<img [src]="specialSkill.type | dragonSpecialSkillImage" alt="Special">
+				</div>
+			}
+		}
 		
-		<div class="dragon-skill-special"
-			[dragonTooltip]="dragon().specialSkillDescription"
-			[tooltipTitle]="dragon().specialSkillTitle" tooltipPosition="top" tooltipTrigger="hover">
-			<img [src]="dragon().specialSkillType | dragonSpecialSkillImage" alt="Special">
-		</div>
 		<div class="dragon-category">
 			{{ dragon().category }}
 		</div>
-		<div class="dragon-image-container">
-			<img [src]="dragon().image" class="dragon-image">
-			<div class="dragon-family" dragonTooltip [tooltipTitle]="dragon().family | dragonFamilyLabel" tooltipPosition="left"
-				tooltipTrigger="hover">
-				<img [src]="dragon().family | dragonFamilyImage">
+		@if (dragon().family) {
+			<div class="dragon-image-container">
+				<img [src]="dragon().image" class="dragon-image">
+				<div class="dragon-family" dragonTooltip [tooltipTitle]="dragon().family! | dragonFamilyLabel" tooltipPosition="left"
+					tooltipTrigger="hover">
+					<img [src]="dragon().family! | dragonFamilyImage">
+				</div>
 			</div>
-		</div>
+		}
 		<h3 class="dragon-name">{{ dragon().name }}</h3>
 		<div class="dragon-elements">
 			@for (skill of dragon().skills; track $index) {

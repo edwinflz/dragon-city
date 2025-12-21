@@ -47,7 +47,6 @@
 					</div>
 				</div>
 
-				<!-- Campo de Nombre - SIN CAMBIOS -->
 				<div class="form-field">
 					<label>Nombre *</label>
 					<input type="text" formControlName="name" placeholder="Dragón bailarín maldito">
@@ -73,7 +72,7 @@
 				</div>
 
 				<div class="form-field">
-					<label>Familia *</label>
+					<label>Familia</label>
 					<select formControlName="family">
 						@for (family of families; track family) {
 							<option [value]="family">{{ family }}</option>
@@ -89,27 +88,37 @@
 		</section>
 
 		<section class="form-section">
-			<h2>Habilidad Especial</h2>
+			<h2>Habilidades Especiales</h2>
+			<button type="button" class="btn-add" (click)="addSpecialSkill()">+ Agregar Habilidad Especial</button>
+	
+			@for (specialSkillGroup of specialSkillsArray.controls; track $index) {
+				<div class="skill-group" [formGroup]="$any(specialSkillGroup)">
+					<div class="skill-header">
+						<h3>Habilidad Especial {{ $index + 1 }}</h3>
+						<button type="button" class="btn-remove" (click)="removeSpecialSkill($index)">Eliminar</button>
+					</div>
 
-			<div class="form-field">
-				<label>Título</label>
-				<input type="text" formControlName="specialSkillTitle" placeholder="Marca Maldita">
-			</div>
+					<div class="form-field">
+						<label>Título *</label>
+						<input type="text" formControlName="title" placeholder="Marca Maldita">
+					</div>
 
-			<div class="form-field">
-				<label>Descripción</label>
-				<textarea formControlName="specialSkillDescription" rows="2"
-					placeholder="Aplica una Marca maldita al unirse..."></textarea>
-			</div>
+					<div class="form-field">
+						<label>Descripción *</label>
+						<textarea formControlName="description" rows="2" 
+							placeholder="Aplica una Marca maldita al unirse..."></textarea>
+					</div>
 
-			<div class="form-field">
-				<label>Tipo *</label>
-				<select formControlName="specialSkillType">
-					@for (type of specialSkillTypes; track type) {
-						<option [value]="type">{{ type }}</option>
-					}
-				</select>
-			</div>
+					<div class="form-field">
+						<label>Tipo *</label>
+						<select formControlName="type">
+							@for (type of specialSkillTypes; track type) {
+								<option [value]="type">{{ type }}</option>
+							}
+						</select>
+					</div>
+				</div>
+			}
 		</section>
 
 		<section class="form-section">
@@ -119,13 +128,40 @@
 			<div class="array-items">
 				@for (control of elementsArray.controls; track $index) {
 					<div class="array-item">
+						<ng-select
+						    class="select-element"
+							[items]="elementOptions"
+							bindLabel="label"
+							bindValue="value"
+							[formControl]="$any(control)"
+							placeholder="Selecciona un elemento"
+							[clearable]="false"
+						>
+							<ng-template ng-label-tmp let-item="item">
+								<div class="select-label">
+									<img [src]="item.image" class="select-image">
+									<span>{{ item.label }}</span>
+								</div>
+							</ng-template>
+							
+							<ng-template ng-option-tmp let-item="item">
+								<div class="select-option">
+									<img [src]="item.image" class="select-option-image">
+									<span>{{ item.label }}</span>
+								</div>
+							</ng-template>
+						</ng-select>
+						
+						<button type="button" class="btn-remove" (click)="removeElement($index)">✕</button>
+					</div>
+					<!-- <div class="array-item">
 						<select [formControl]="$any(control)">
 							@for (element of elements; track element) {
 								<option [value]="element">{{ element }}</option>
 							}
 						</select>
 						<button type="button" class="btn-remove" (click)="removeElement($index)">✕</button>
-					</div>
+					</div> -->
 				}
 			</div>
 		</section>
@@ -137,13 +173,40 @@
 			<div class="array-items">
 				@for (control of criticalElementsArray.controls; track $index) {
 					<div class="array-item">
+						<ng-select
+						    class="select-element"
+							[items]="elementOptions"
+							bindLabel="label"
+							bindValue="value"
+							[formControl]="$any(control)"
+							placeholder="Selecciona un elemento"
+							[clearable]="false"
+						>
+							<ng-template ng-label-tmp let-item="item">
+								<div class="select-label">
+									<img [src]="item.image" class="select-image">
+									<span>{{ item.label }}</span>
+								</div>
+							</ng-template>
+							
+							<ng-template ng-option-tmp let-item="item">
+								<div class="select-option">
+									<img [src]="item.image" class="select-option-image">
+									<span>{{ item.label }}</span>
+								</div>
+							</ng-template>
+						</ng-select>
+						
+						<button type="button" class="btn-remove" (click)="removeCriticalElement($index)">✕</button>
+					</div>
+					<!-- <div class="array-item">
 						<select [formControl]="$any(control)">
 							@for (element of elements; track element) {
 								<option [value]="element">{{ element }}</option>
 							}
 						</select>
 						<button type="button" class="btn-remove" (click)="removeCriticalElement($index)">✕</button>
-					</div>
+					</div> -->
 				}
 			</div>
 		</section>
@@ -155,13 +218,40 @@
 			<div class="array-items">
 				@for (control of weakElementsArray.controls; track $index) {
 					<div class="array-item">
+						<ng-select
+						    class="select-element"
+							[items]="elementOptions"
+							bindLabel="label"
+							bindValue="value"
+							[formControl]="$any(control)"
+							placeholder="Selecciona un elemento"
+							[clearable]="false"
+						>
+							<ng-template ng-label-tmp let-item="item">
+								<div class="select-label">
+									<img [src]="item.image" class="select-image">
+									<span>{{ item.label }}</span>
+								</div>
+							</ng-template>
+							
+							<ng-template ng-option-tmp let-item="item">
+								<div class="select-option">
+									<img [src]="item.image" class="select-option-image">
+									<span>{{ item.label }}</span>
+								</div>
+							</ng-template>
+						</ng-select>
+						
+						<button type="button" class="btn-remove" (click)="removeWeakElement($index)">✕</button>
+					</div>
+					<!-- <div class="array-item">
 						<select [formControl]="$any(control)">
 							@for (element of elements; track element) {
 								<option [value]="element">{{ element }}</option>
 							}
 						</select>
 						<button type="button" class="btn-remove" (click)="removeWeakElement($index)">✕</button>
-					</div>
+					</div> -->
 				}
 			</div>
 		</section>
@@ -185,12 +275,39 @@
 
 						<div class="form-field">
 							<label>Imagen *</label>
+							<ng-select
+							    class="select-element"
+								[items]="skillOptions"
+								bindLabel="label"
+								bindValue="value"
+								formControlName="image"
+								placeholder="Selecciona una skill"
+								[clearable]="false"
+							>
+								<ng-template ng-label-tmp let-item="item">
+									<div class="select-label">
+										<img [src]="item.image" class="select-image">
+										<span>{{ item.label }}</span>
+									</div>
+								</ng-template>
+								
+								<ng-template ng-option-tmp let-item="item">
+									<div class="select-option">
+										<img [src]="item.image" class="select-option-image">
+										<span>{{ item.label }}</span>
+									</div>
+								</ng-template>
+							</ng-select>
+						</div>
+
+						<!-- <div class="form-field">
+							<label>Imagen *</label>
 							<select formControlName="image">
 								@for (skill of skills; track skill) {
 									<option [value]="skill">{{ skill }}</option>
 								}
 							</select>
-						</div>
+						</div> -->
 					</div>
 
 					<div class="form-field">
@@ -206,7 +323,7 @@
 							</label>
 						</div>
 
-						<div class="form-field">
+						<!-- <div class="form-field">
 							<label>Strong Skill</label>
 							<select formControlName="strongSkill">
 								<option [value]="null">Ninguno</option>
@@ -214,6 +331,37 @@
 									<option [value]="strongSkill">{{ strongSkill }}</option>
 								}
 							</select>
+						</div> -->
+
+						<div class="form-field">
+							<label>Strong Skill</label>
+							<ng-select
+							   	class="select-element"
+								[items]="strongSkillOptions"
+								bindLabel="label"
+								bindValue="value"
+								formControlName="strongSkill"
+								placeholder="Ninguno"
+								[clearable]="true"
+							>
+								<ng-template ng-label-tmp let-item="item">
+									<div class="select-label">
+										@if (item.image) {
+											<img [src]="item.image" class="select-image">
+										}
+										<span>{{ item.label }}</span>
+									</div>
+								</ng-template>
+								
+								<ng-template ng-option-tmp let-item="item">
+									<div class="select-option">
+										@if (item.image) {
+											<img [src]="item.image" class="select-option-image">
+										}
+										<span>{{ item.label }}</span>
+									</div>
+								</ng-template>
+							</ng-select>
 						</div>
 					</div>
 				</div>
@@ -239,12 +387,38 @@
 
 						<div class="form-field">
 							<label>Rank *</label>
+							<ng-select
+								[items]="skinRankOptions"
+								bindLabel="label"
+								bindValue="value"
+								formControlName="rank"
+								(change)="onRankChange($index, $event.value)"
+								[clearable]="false"
+							>
+								<ng-template ng-label-tmp let-item="item">
+									<div class="select-label">
+										<img [src]="item.image" class="select-image">
+										<span>{{ item.label }}</span>
+									</div>
+								</ng-template>
+								
+								<ng-template ng-option-tmp let-item="item">
+									<div class="select-option">
+										<img [src]="item.image" class="select-option-image">
+										<span>{{ item.label }}</span>
+									</div>
+								</ng-template>
+							</ng-select>
+						</div>
+
+						<!-- <div class="form-field">
+							<label>Rank *</label>
 							<select formControlName="rank" (change)="onRankChange($index, $any($event.target).value)">
 								@for (rank of skinRanks; track rank) {
 									<option [value]="rank">{{ rank }}</option>
 								}
 							</select>
-						</div>
+						</div> -->
 					</div>
 
 					<div class="form-field">

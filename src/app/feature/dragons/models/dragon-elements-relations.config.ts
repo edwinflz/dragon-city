@@ -105,7 +105,6 @@ export const SKIN_RANK_VALUES: Record<DragonSkinRankLabel, number> = {
 	[DragonSkinRankLabel.A_MINUS]: 1
 };
 
-
 export function getSkinRankValue(rank: DragonSkinRankLabel): number {
 	return SKIN_RANK_VALUES[rank];
 }
